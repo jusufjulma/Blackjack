@@ -1,0 +1,28 @@
+html{
+
+  background: linear-gradient(130deg,  #0FDAFF, #C0FF0D);
+  height: 100%;
+
+}
+
+body{
+  height: 100%;
+  width: 75%;
+  margin: auto;
+  margin-top: 0%;
+  /*background-color: rgba(0, 0, 0, 0.3);*/
+  background-color: rgba(255,255,255, 0.3);
+}
+
+.start{
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25%;
+  font-size: 200%;
+  background-color: darkgrey;
+  border: none;
+}
+
+.start:active  {
+  background-color: white;
+}
