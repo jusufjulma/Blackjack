@@ -16,8 +16,8 @@ for (var i = 0; i < suits.length; i++) {
      var card = new Card(suits[i], values[j]);
      deck.push(card);
    }
- }
+ }console.log(deck);
 }
-console.log(deck);
+
 
 $(".start").click(deckCreator);
