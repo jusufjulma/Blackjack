@@ -19,5 +19,12 @@ for (var i = 0; i < suits.length; i++) {
  }console.log(deck);
 }
 
-
+// triggers for buttons
 $(".start").click(deckCreator);
+$(".shuffle").click(shuffle);
+
+function shuffle(){ // this is a massively complicated super-shuffle algorithm
+for (var i = 0; i < deck.length; i++) {
+  deck[i] = deck[Math.floor(Math.random()*51)]};
+  console.log(deck);
+}; // closes shuffle function
