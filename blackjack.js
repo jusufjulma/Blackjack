@@ -29,10 +29,20 @@ $(".deal").click(firstDeal);
 
 function shuffle(){ // this is a massively complicated super-shuffle algorithm
                     // also totally fucked
-for (var i = 0; i < deck.length; i++) {
-  deck[i] = deck[Math.floor(Math.random()*51)]};
-  console.log(deck);
-}; // closes shuffle function
+let x = 51;         // might need to be optimized
+let y = 0;
+let z = 0;
+var shuffled = [];
+for (var i = 0; i < 52; i++) {
+  z = Math.floor(Math.random()*x)
+  y = deck[z]
+  shuffled.push(y);
+  deck.splice(z, 1);
+  x = x - 1;
+}; console.log(shuffled); // closes for-loop, logs shuffled deck
+
+deck = shuffled;
+};  // closes shuffle function
 
 // draw the top card and remove it from the deck
 function drawCard(){ // draws first card from array
