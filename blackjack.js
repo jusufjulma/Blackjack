@@ -102,9 +102,13 @@ console.log(player);
 var x = player;
 blackjackInspector(x);
 console.log("RETURNED VALUE The value of hand is now: " + y);
+$("#score-p").html(y);
 
 // console.log("Dealer got these: ");
-// console.log(dealer);
+var dhand = dealer[0];
+dhand = dhand.value;
+$("#score-d").html(dhand);
+console.log(dealer);
 // var x = dealer;
 // blackjackInspector(x);
 
@@ -182,34 +186,45 @@ var x = player;
 blackjackInspector(x);
 yP = y;
 console.log("This is player hand total: " + yP);
+$("#score-p").html(yP);
 };
 
 function stand(){
   yP = y;
   console.log("This is player hand total: " + yP);
+  $("#score-p").html(yP);
   stand1()};
-  function stand1(){
-  console.log("Stand");
-  console.log("This is player hand total: " + yP);
-  var x = dealer;
-  blackjackInspector(x);
-  while (y < yP) {
-    var cardhing = deck[0];  // let's select first card
-    dealer.push(cardhing);  // dealer array gets new card
-    deck.splice(0, 1);      // getting rid of the dealt card
-    blackjackInspector(x);}
-  if (y == 21) {
-    console.log("BLACKJACK, you just lost.");
-  }else if (y > 21) {
-    console.log("Dealer BUST, you win!");
-  }
-  yD = y;
-  console.log(y);
-  if (y > yP) {
-    console.log("Dealer wins.");
-  }else if (y < yP) {
-    console.log("Player wins!");
-  }
+
+function stand1(){
+console.log("Stand");
+console.log("This is player hand total: " + yP);
+var x = dealer;
+blackjackInspector(x);
+$("#score-d").html(y);
+while (y < yP) {
+  var cardhing = deck[0];  // let's select first card
+  dealer.push(cardhing);  // dealer array gets new card
+  deck.splice(0, 1);      // getting rid of the dealt card
+  blackjackInspector(x);}
+if (y == 21) {
+  if (yP == 21){
+    console.log("It's a tie!");}
+  else{console.log("BLACKJACK, dealer wins.");
+  $("#score-d").html(y);}
+}else if (y > 21) {
+  console.log("Dealer BUST, you win!");
+  $("#score-d").html(y);
+}
+yD = y;
+console.log(y);
+if (y > yP) {
+  if (y < 22){
+  $("#score-d").html(y);
+  console.log("Dealer wins.");}
+}else if (y < yP) {
+  $("#score-d").html(y);
+  console.log("Player wins!");
+}
 };            // end of stand1
 
 

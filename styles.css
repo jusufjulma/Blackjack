@@ -47,3 +47,26 @@ button:hover  {
 button:active  {
   background-color: rgba(50, 255, 200, 0);
 }
+
+.scores{ /*PURPLE BOX*/
+  border: solid;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* background-color: rgba(255, 0, 255, 0.5); */
+}
+#scoreidentifier{ /*GREEN BOX*/
+  padding: 0rem 2rem;
+  font-size: 150%;
+  /* background-color: rgba(0, 255, 0, 0.8); */
+}
+
+#score-p, #score-d{ /*RED BOX*/
+  position: absolute;
+  width: 2rem;
+  text-align: center;
+  /* background-color: rgba(255, 0, 0, 1); */
+}
