@@ -5,12 +5,15 @@ player[] and dealer[] are used to store hands
 button triggers are on top of functions
 
 Order of functions:
-Card          constructor function for cards
-deckCreator   triggered by button, creates a deck
-shuffled      shuffles the deck; can be used multiple times.
-drawCard      draws one card; not in use at the moment
-firstDeal     does the beginning deal - 2 for player, 2 for dealer
-blackjackInspector   gets input from firstDeal, checks for blackjack
+newGame               creates the deck and shuffles it
+Card                  constructor function for cards
+deckCreator           triggered by button, creates a deck
+shuffled              shuffles the deck; can be used multiple times.
+drawCard              draws one card; not in use at the moment
+firstDeal             does the beginning deal - 2 for player, 2 for dealer
+blackjackInspector    gets input from firstDeal, checks for blackjack
+hit                   decides to pick one more card
+stand                 decides to stay, lets dealer to draw
 
 */
 var deck = []; // global variable for all functions to use
@@ -21,10 +24,16 @@ var deck = []; // global variable for all functions to use
 //$(".draw").click(drawCard);
 //$(".deal").click(firstDeal);
 // jQuery is not my favourite tool
-document.getElementsByClassName("start")[0].onclick = deckCreator;
-document.getElementsByClassName("shuffle")[0].onclick = shuffle;
-document.getElementsByClassName("draw")[0].onclick = drawCard;
+
+// document.getElementsByClassName("start")[0].onclick = deckCreator;
+// document.getElementsByClassName("shuffle")[0].onclick = shuffle;
+// document.getElementsByClassName("draw")[0].onclick = drawCard;
+document.getElementsByClassName("newgame")[0].onclick = newGame;
 document.getElementsByClassName("deal")[0].onclick = firstDeal;
+document.getElementsByClassName("hit")[0].onclick = hit;
+document.getElementsByClassName("stand")[0].onclick = stand;
+
+function newGame(){deckCreator();shuffle();}; // creates and shuffles deck
 
 function Card(suit, value) { // object constructor
 this.suit = suit;
@@ -35,7 +44,6 @@ function deckCreator() {
 
 var suits = ["clubs", "diamonds", "hearts", "spades"]
 var values = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"]
-
 for (var i = 0; i < suits.length; i++) {
   for (var j = 0; j < values.length; j++) {
      var card = new Card(suits[i], values[j]);
@@ -46,7 +54,7 @@ for (var i = 0; i < suits.length; i++) {
 
 
 function shuffle(){ // this is a massively complicated super-shuffle algorithm
-                    // also totally fucked
+
 let x = 51; let y = 0; let z = 0;  // might need to be optimized
 var shuffled = [];
 for (var i = 0; i < 52; i++) {
@@ -69,8 +77,8 @@ console.log(deck[0]);
 console.log(deck);
 }; // this ends draw function
 
+var player = []; var dealer = [];   // creating arrays for player hands
 function firstDeal(){
-var player = []; var dealer = [];
 for (var i = 0; i < 2; i++) {
 // first card goes to player
 var cardhing = deck[0];  // let's select first card
@@ -93,16 +101,18 @@ console.log("Player got these: ");
 console.log(player);
 var x = player;
 blackjackInspector(x);
-console.log("Dealer got these: ");
-console.log(dealer);
-var x = dealer;
-blackjackInspector(x);
+console.log("RETURNED VALUE The value of hand is now: " + y);
 
+// console.log("Dealer got these: ");
+// console.log(dealer);
+// var x = dealer;
+// blackjackInspector(x);
 
 }; //end of firstDeal
 
+
 function blackjackInspector(x){ // is this hand a blackjack?
-  console.log("Firing INSPECTOR!!!");
+//  console.log("Firing INSPECTOR!!!");
   var isIt = 0; // is it Blackjack or NOT? This gets the value of given hand
   var aC = 0; // this variable aceChecker gets +1 if player hand has an ace
   var aU = 0; // this variable acesUsed gets +1 after ace has caused -10
@@ -118,21 +128,22 @@ function blackjackInspector(x){ // is this hand a blackjack?
     console.log(playerHand);
     isIt = isIt + playerHand;
 
-    if (aC == 1) {
-      console.log("Player has an ace");
-    }else if (aC == 2) {
-      console.log("Player has TWO aces!");
-    }else if (aC == 3) {
-        console.log("Player has T H R E E aces!");
-      }else if (aC == 4) {
-          console.log("Crazy man 4 aces!");}
+    // if (aC == 1) {
+    //   console.log("Player has an ace");
+    // }else if (aC == 2) {
+    //   console.log("Player has TWO aces!");
+    // }else if (aC == 3) {
+    //     console.log("Player has T H R E E aces!");
+    //   }else if (aC == 4) {
+    //       console.log("Crazy man 4 aces!");}
 
     if (isIt == 21) {
       console.log("IT'S A BLACKJACK!");
       break;
     }else if (isIt < 21){
-      console.log("Not a blackjack yet");
-    }else{ // meaning if isIt >21
+//      console.log("Not a blackjack yet"); // it waits for both cards to be checked
+
+      }else{ // meaning if isIt >21
       if (aC > 0 && aU == 0) {
         isIt = isIt - 10; aU++;}else  if (isIt >21 && aC > 1 && aU == 1){
           isIt = isIt - 10; aU++}else if (isIt >21 && aC > 2 && aU == 2){
@@ -146,13 +157,13 @@ function blackjackInspector(x){ // is this hand a blackjack?
 
     } // end of else; grater than 21
 
-    console.log("This is the sum of hand now: " + isIt);
+//    console.log("This is the sum of hand now: " + isIt);
     if (isIt == 21) {
       console.log("BLACKJACK!!!");
       break;}
 
   } // actually THIS ends calculation
-    console.log(isIt); // this ends calculator and tells the value
+    console.log("This is the sum of hand now: " + isIt); // this ends calculator and tells the value
 
 y = isIt;
 return y;
@@ -160,6 +171,46 @@ return y;
 
 
 
+var yP = 0; var yD = 0; // variables for comparing player and dealer hands
+
+function hit(){
+console.log("Hit!");
+var cardhing = deck[0];  // let's select first card
+player.push(cardhing);  // player array gets new card
+deck.splice(0, 1);      // getting rid of the dealt card
+var x = player;
+blackjackInspector(x);
+yP = y;
+console.log("This is player hand total: " + yP);
+};
+
+function stand(){
+  yP = y;
+  console.log("This is player hand total: " + yP);
+  stand1()};
+  function stand1(){
+  console.log("Stand");
+  console.log("This is player hand total: " + yP);
+  var x = dealer;
+  blackjackInspector(x);
+  while (y < yP) {
+    var cardhing = deck[0];  // let's select first card
+    dealer.push(cardhing);  // dealer array gets new card
+    deck.splice(0, 1);      // getting rid of the dealt card
+    blackjackInspector(x);}
+  if (y == 21) {
+    console.log("BLACKJACK, you just lost.");
+  }else if (y > 21) {
+    console.log("Dealer BUST, you win!");
+  }
+  yD = y;
+  console.log(y);
+  if (y > yP) {
+    console.log("Dealer wins.");
+  }else if (y < yP) {
+    console.log("Player wins!");
+  }
+};            // end of stand1
 
 
 
