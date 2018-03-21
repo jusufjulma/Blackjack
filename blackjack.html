@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <br><p class="welcome">Welcome to Blackjack!</p>
     <button class="start" type="button" name="button">Create</button>
-
+    <button class="shuffle" type="button" name="button">Shuffle</button>
+    <button class="draw" type="button" name="button">DRAW!</button>
+    <button class="deal" type="button" name="button">Deal</button>
 
 
 
@@ -17,3 +20,25 @@
 </script>
   </body>
 </html>
+
+
+<!--   ASSIGNMENT INFORMATION
+Sprint 2 - Draw the top card
+Next step is to add a functionality to draw and look at the top card of the deck.
+Add a method for "drawing" the "top card" of the deck of cards you created in the previous sprint. The computer will take a card object from the last place of the array and display its properties.
+To simulate drawing from a deck, the array should update so that the drawn object is deleted from the array (it is taken from the deck). You can use the pop() function to do this.
+
+Sprint 3 - The first round
+Now let's deal out the cards we pulled from the deck in the previous sprint.
+    The player should receive two cards to their hand. The dealer is dealt one card. For now you can just write the cards to console.
+    After both players have two cards, calculate the score of each hand. Cards 2-10 correspond to their numerical value. Jack, Queen, and King count as 10.
+    Ace is either 1 or 11. If the value of the hand is 10 or less, value of Ace will be 11. Otherwise Ace is 1, to prevent the hand from exceeding 21.
+    If the first card the player received was Ace, and the next one is a card with value 10 (10 or face cards), the player will automatically win. Have the game notify that player received a blackjack.
+
+Sprint 4 - Further rounds
+Now that both players have two cards, player should have an option to either Hit or Stand.
+Hitting means that the player receives another card. The game should check if the player's hand value is over 21. In the case that it is, the player busts and loses. If it is not, player selects again between Hit and Stand.
+Stand means that the player is happy with the value of their hand and does not wish to have any more cards dealt. Once the player has selected to stand, the dealer will start drawing cards. The dealer will draw cards until their value is at least 17 or they go over 21 and bust. If the dealer busts, the player wins.
+Deciding the winner:
+After the dealer's hand value is at least 17 (and not over 21), the game should check if player's hand is higher than dealer's. If player's hand is lower than dealer's, the player loses. If the player's hand is higher than dealer's, the dealer will draw cards until their value either exceeds player's hand or they go over 21 and bust. If they bust, the player wins. If dealer's value is higher, the player loses.
+-->
